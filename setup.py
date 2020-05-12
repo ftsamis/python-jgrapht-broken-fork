@@ -1,6 +1,6 @@
 import sys
-if sys.version_info < (3, 6):
-    raise Exception('Building python-jgrapht requires Python 3.6 or higher.')
+if sys.version_info < (3, 5):
+    raise Exception('Building python-jgrapht requires Python 3.5 or higher.')
 import os
 import codecs
 

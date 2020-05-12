@@ -10,7 +10,8 @@ jobs:
     - os: osx
       sudo: required
       install: brew cask install graalvm/tap/graalvm-ce-java11
-      script: java -version
+      env: PATH=/Library/Java/JavaVirtualMachines/graalvm-ce-java11-20.0.0/Contents/Home/bin:"$PATH"
+script: java -version
 #    - os: linux  
 #    - os: windows
 #    - sudo: required

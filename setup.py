@@ -24,13 +24,13 @@ if sys.platform.startswith('linux'):
     # Make sure that _backend.so will be able to load jgrapht_capi.so
     runtime_library_dirs=['$ORIGIN']
 elif sys.platform.startswith('darwin'):
+    so_ext = '.dylib'
+    capi_filename = 'libjgrapht_capi' + so_ext
     from distutils.sysconfig import get_config_vars
     conf_vars = get_config_vars()
     conf_vars['LDSHARED'] = conf_vars['LDSHARED'].replace('-bundle', '-dynamiclib')
     # Temp
     conf_vars['LDSHARED']+= ' -install_name @loader_path/' + capi_filename + ' '
-    so_ext = '.dylib'
-    capi_filename = 'libjgrapht_capi' + so_ext
     # On MacOS runtime_library_dirs doesn't work, and @loader_path is used instead of $ORIGIN
     #extra_link_args = ['-install_name', '@loader_path/' + capi_filename]
     #extra_link_args = ['-Wl,-rpath,@loader_path/' + capi_filename]

@@ -12,8 +12,9 @@ from setuptools.command.build_ext import build_ext
 
 from distutils.command.build import build
 
-extra_link_flags = []
+extra_link_args = []
 runtime_library_dirs = []
+print('Platform:',sys.platform)
 if sys.platform.startswith('win32'):
     so_ext = '.dll'
     capi_filename = 'jgrapht_capi' + so_ext
@@ -26,7 +27,7 @@ elif sys.platform.startswith('darwin'):
     so_ext = '.dylib'
     capi_filename = 'libjgrapht_capi' + so_ext
     # On MacOS runtime_library_dirs doesn't work, and @loader_path is used instead of $ORIGIN
-    extra_link_flags = ['-install_name', '@loader_path/' + capi_filename]
+    extra_link_args = ['-install_name', '@loader_path/' + capi_filename]
 
 
 class BuildCapiCommand(Command):
@@ -106,7 +107,7 @@ _backend_extension = Extension('jgrapht._backend', ['jgrapht/backend.i','jgrapht
                                library_dirs=['vendor/build/jgrapht-capi/'],
                                libraries=['jgrapht_capi'],
                                runtime_library_dirs=runtime_library_dirs,
-                               extra_link_flags=extra_link_flags,
+                               extra_link_args=extra_link_args,
                                )
 
 def read(rel_path):

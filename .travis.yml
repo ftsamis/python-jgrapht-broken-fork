@@ -20,7 +20,7 @@ jobs:
         - brew install swig
 
 script:
-  - java -versi
+  - java -version
   - native-image --version
   - cmake --version
   - swig -version

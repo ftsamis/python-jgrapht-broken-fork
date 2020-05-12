@@ -8,6 +8,7 @@ language: minimal
 jobs:
   include:
     - os: osx
+      language: shell
       sudo: required
       install:
         - brew cask install graalvm/tap/graalvm-ce-java11
@@ -15,13 +16,13 @@ jobs:
         - gu install native-image
         - brew install swig
 
-
 script:
-  - java -version
+  - java -versi
   - native-image --version
   - cmake --version
   - swig -version
-  - python --version
+  - python3 --version
+  - python3 setup.py bdist_wheel
 
 
 #    - os: linux  

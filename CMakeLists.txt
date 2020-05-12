@@ -22,10 +22,10 @@ add_custom_command(
 )
 
 add_custom_command(
-    OUTPUT libjgrapht_capi.so jgrapht_capi.h jgrapht_capi_dynamic.h graal_isolate.h graal_isolate_dynamic.h
+    OUTPUT libjgrapht_capi.dylib jgrapht_capi.h jgrapht_capi_dynamic.h graal_isolate.h graal_isolate_dynamic.h
     COMMAND native-image -cp ${CMAKE_BINARY_DIR}/target/jgrapht-capi-0.1.jar --no-fallback --initialize-at-build-time --no-server --shared
-    COMMAND cp ${CMAKE_BINARY_DIR}/jgrapht_capi.so ${CMAKE_BINARY_DIR}/libjgrapht_capi.so 
-    COMMAND rm ${CMAKE_BINARY_DIR}/jgrapht_capi.so
+    COMMAND cp ${CMAKE_BINARY_DIR}/jgrapht_capi.dylib ${CMAKE_BINARY_DIR}/libjgrapht_capi.dylib 
+    COMMAND rm ${CMAKE_BINARY_DIR}/jgrapht_capi.dylib
     DEPENDS target/jgrapht-capi-0.1.jar
     COMMENT "Producing shared library from jar file"
 )
@@ -37,17 +37,17 @@ add_custom_target(
 
 add_custom_target(
     jgraphtsharedlib
-    SOURCES libjgrapht_capi.so
+    SOURCES libjgrapht_capi.dylib
 )
 
 set_property(SOURCE ${CMAKE_BINARY_DIR}/jgrapht-capi/jgrapht_capi.h PROPERTY GENERATED 1)
 set_property(SOURCE ${CMAKE_BINARY_DIR}/jgrapht-capi/jgrapht_capi_dynamic.h PROPERTY GENERATED 1)
 set_property(SOURCE ${CMAKE_BINARY_DIR}/jgrapht-capi/graal_isolate.h PROPERTY GENERATED 1)
 set_property(SOURCE ${CMAKE_BINARY_DIR}/jgrapht-capi/graal_isolate_dynamic.h PROPERTY GENERATED 1)
-set_property(SOURCE ${CMAKE_BINARY_DIR}/jgrapht-capi/libjgrapht_capi.so PROPERTY GENERATED 1)
+set_property(SOURCE ${CMAKE_BINARY_DIR}/jgrapht-capi/libjgrapht_capi.dylib PROPERTY GENERATED 1)
 
 add_library(jgrapht_capi SHARED IMPORTED)
-set_property(TARGET jgrapht_capi PROPERTY IMPORTED_LOCATION ${CMAKE_BINARY_DIR}/libjgrapht_capi.so)
+set_property(TARGET jgrapht_capi PROPERTY IMPORTED_LOCATION ${CMAKE_BINARY_DIR}/libjgrapht_capi.dylib)
 
 add_dependencies(jgrapht_capi jgraphtsharedlib)
 
@@ -64,7 +64,7 @@ install(
 
 install(
     FILES
-    ${CMAKE_BINARY_DIR}/libjgrapht_capi.so
+    ${CMAKE_BINARY_DIR}/libjgrapht_capi.dylib
     DESTINATION        
     ${CMAKE_INSTALL_LIBDIR}
 )

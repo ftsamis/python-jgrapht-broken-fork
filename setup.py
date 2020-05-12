@@ -37,7 +37,7 @@ class BuildCapiCommand(Command):
         self.src_dir = os.path.join('vendor', 'source', 'jgrapht-capi')
         self.build_dir = os.path.join('vendor', 'build', 'jgrapht-capi')
         self.package_name = 'jgrapht'
-        self.filename = 'libjgrapht_capi.so'
+        self.filename = 'libjgrapht_capi.dylib'
 
     def run(self):
         """Compile the jgrapht-capi from the git submodule inside `vendor/source/jgrapht-capi`."""

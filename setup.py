@@ -146,5 +146,5 @@ setup(
         'Topic :: Software Development :: Libraries'
     ],
     keywords='graphs,networks,data-structures,algorithms',
-    python_requires='>=3.6'
+    python_requires='>=3.5'
 )

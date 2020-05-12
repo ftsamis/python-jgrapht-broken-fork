@@ -26,6 +26,8 @@ script:
   - swig -version
   - python3 --version
   - python3 setup.py bdist_wheel
+  - pip3 install pytest
+  - pytest tests
 
 
 #    - os: linux  

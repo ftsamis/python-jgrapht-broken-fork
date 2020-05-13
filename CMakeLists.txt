@@ -24,7 +24,7 @@ add_custom_command(
 add_custom_command(
     OUTPUT libjgrapht_capi.dylib jgrapht_capi.h jgrapht_capi_dynamic.h graal_isolate.h graal_isolate_dynamic.h
     COMMAND native-image -cp ${CMAKE_BINARY_DIR}/target/jgrapht-capi-0.1.jar --no-fallback --initialize-at-build-time --no-server --shared
-    COMMAND cp ${CMAKE_BINARY_DIR}/jgrapht_capi.dylib ${CMAKE_BINARY_DIR}/libjgrapht_capi.dylib 
+    COMMAND cp ${CMAKE_BINARY_DIR}/jgrapht_capi.dylib ${CMAKE_BINARY_DIR}/libjgrapht_capi.dylib
     COMMAND rm ${CMAKE_BINARY_DIR}/jgrapht_capi.dylib
     DEPENDS target/jgrapht-capi-0.1.jar
     COMMENT "Producing shared library from jar file"
@@ -38,6 +38,12 @@ add_custom_target(
 add_custom_target(
     jgraphtsharedlib
     SOURCES libjgrapht_capi.dylib
+)
+
+SET_TARGET_PROPERTIES(
+    jgraphtsharedlib
+    PROPERTIES BUILD_WITH_INSTALL_RPATH 1
+               INSTALL_NAME_DIR "@rpath"
 )
 
 set_property(SOURCE ${CMAKE_BINARY_DIR}/jgrapht-capi/jgrapht_capi.h PROPERTY GENERATED 1)

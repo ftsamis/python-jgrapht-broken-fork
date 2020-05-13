@@ -30,7 +30,7 @@ script:
   - pip3 install python-jgrapht --no-index -f dist/
   - otool -l -v  /usr/local/lib/python3.7/site-packages/jgrapht/_backend.cpython-37m-darwin.so
   - otool -l -v /usr/local/lib/python3.7/site-packages/jgrapht/libjgrapht_capi.dylib
-#  - pytest tests
+  - pytest tests
 
 
 #    - os: linux  

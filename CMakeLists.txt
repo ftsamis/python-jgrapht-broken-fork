@@ -14,10 +14,10 @@ message(STATUS "native-image found at ${NativeImage}")
 include(GNUInstallDirs)
 
 
-IF(APPLE)
-  SET(CMAKE_INSTALL_NAME_DIR @rpath)
+#IF(APPLE)
+#  SET(CMAKE_INSTALL_NAME_DIR @rpath)
 #  SET(CMAKE_BUILD_WITH_INSTALL_RPATH ON)
-ENDIF(APPLE)
+#ENDIF(APPLE)
 
 add_custom_command(
     OUTPUT target/jgrapht-capi-0.1.jar
@@ -55,6 +55,12 @@ set_property(SOURCE ${CMAKE_BINARY_DIR}/jgrapht-capi/libjgrapht_capi.dylib PROPE
 
 add_library(jgrapht_capi SHARED IMPORTED)
 set_property(TARGET jgrapht_capi PROPERTY IMPORTED_LOCATION ${CMAKE_BINARY_DIR}/libjgrapht_capi.dylib)
+
+# Install path
+SET_TARGET_PROPERTIES (jgrapht_capi
+  PROPERTIES BUILD_WITH_INSTALL_RPATH 1
+             INSTALL_NAME_DIR "@rpath"
+  )
 
 add_dependencies(jgrapht_capi jgraphtsharedlib)
 

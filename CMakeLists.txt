@@ -140,12 +140,15 @@ set(
     "test_simple_cycles_tiernan.c"
     "test_simple_cycles_szwarcfiter_lauer.c"
     "test_simple_cycles_johnson.c"
+    "test_connectivity.c"
+    "test_sparse_graph.c"
+    "test_sparse_graph2.c"
 )
 foreach(testsourcefile ${TEST_SOURCES})
     string(REPLACE ".c" "" testname ${testsourcefile})
     add_executable(${testname} test/${testsourcefile})
     target_include_directories(${testname} PUBLIC ${CMAKE_BINARY_DIR} ${CMAKE_SOURCE_DIR}/jgrapht-capi/src/main/native)
-    target_link_libraries(${testname} jgrapht_capi)
+    target_link_libraries(${testname} jgrapht_capi m)
     add_test(NAME ${testname} COMMAND ${testname})
 endforeach(testsourcefile ${TEST_SOURCES})
 

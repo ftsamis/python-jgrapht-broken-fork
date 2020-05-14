@@ -7,42 +7,45 @@ language: minimal
 
 jobs:
   include:
-    - os: osx
-      language: shell
-      sudo: required
-      install:
-        - mv CMakeLists.txt vendor/source/jgrapht-capi/CMakeLists.txt
-        - brew cask install graalvm/tap/graalvm-ce-java11
-        - export PATH=/Library/Java/JavaVirtualMachines/graalvm-ce-java11-20.0.0/Contents/Home/bin:"$PATH"
-        - gu install native-image
-        - brew install swig
-    - os: linux
-      sudo: required
-      services:
-        - docker
-      env: DOCKER_IMAGE=ftsamis/python-jgrapht-builder:1
-           PLAT=manylinux2010_x86_64
-      install:
-        - docker pull $DOCKER_IMAGE
-      script:
-        - docker run --rm -e PLAT=$PLAT -v `pwd`:/io $DOCKER_IMAGE $PRE_CMD /io/travis/build-wheels.sh
-        - ls -l dist/
+#    - os: osx
+#      language: shell
+#      sudo: required
+#      install:
+#        - mv CMakeLists.txt vendor/source/jgrapht-capi/CMakeLists.txt
+#        - brew cask install graalvm/tap/graalvm-ce-java11
+#        - export PATH=/Library/Java/JavaVirtualMachines/graalvm-ce-java11-20.0.0/Contents/Home/bin:"$PATH"
+#        - gu install native-image
+#        - brew install swig
+#    - os: linux
+#      sudo: required
+ #     services:
+ #       - docker
+ #     env: DOCKER_IMAGE=ftsamis/python-jgrapht-builder:1
+ #          PLAT=manylinux2010_x86_64
+ #     install:
+ #       - docker pull $DOCKER_IMAGE
+ #     script:
+ #       - docker run --rm -e PLAT=$PLAT -v `pwd`:/io $DOCKER_IMAGE $PRE_CMD /io/travis/build-wheels.sh
+ #       - ls -l dist/
     - os: windows
       language: shell
       install:
+        - choco install maven
         - choco install graalvm --version=20.0.0
-        - choco install python --verison=3.8.0
+        - choco install python --version=3.8.0
         - choco install swig --version=4.0.1
+        - gu install native-image
       script:
         - ls -l /c/
+        - ls -lR /c/tools/*
         - pwd
         - ls -l
         - java -version
         - native-image --version
         - cmake --version
         - swig -version
-        - python3 --version
-        - python3 setup.py bdist_wheel
+        - python --version
+        - python setup.py bdist_wheel
 
 
 script:

@@ -34,6 +34,8 @@ jobs:
         - choco install graalvm --version=20.0.0
         - choco install python --version=3.8.0
         - choco install swig --version=4.0.1
+        - ls 'C:\Program Files\GraalVM\graalvm-ce-java11-20.0.0\bin'
+        - echo $PATH
 #        - gu install native-image
       script:
         - ls -l /c/

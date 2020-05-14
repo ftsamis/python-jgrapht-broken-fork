@@ -14,7 +14,8 @@ from distutils.command.build import build
 
 extra_link_args = []
 runtime_library_dirs = []
-print('Platform:',sys.platform)
+print('Platform:', sys.platform)
+
 if sys.platform.startswith('win32'):
     so_ext = '.dll'
     capi_filename = 'jgrapht_capi' + so_ext
@@ -29,11 +30,6 @@ elif sys.platform.startswith('darwin'):
     from distutils.sysconfig import get_config_vars
     conf_vars = get_config_vars()
     conf_vars['LDSHARED'] = conf_vars['LDSHARED'].replace('-bundle', '-dynamiclib')
-    # Temp
-    #conf_vars['LDSHARED']+= ' -install_name @loader_path/' + capi_filename + ' '
-    #conf_vars['LDSHARED']+= ' -install_name @loader_path/' +  'jgrapht_capi.dylib '
-    # On MacOS runtime_library_dirs doesn't work, and @loader_path is used instead of $ORIGIN
-    #extra_link_args = ['-install_name', '@loader_path/' + capi_filename]
     extra_link_args = ['-Wl,-rpath,@loader_path']
 
 

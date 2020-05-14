@@ -37,6 +37,7 @@ jobs:
         - ls 'C:\Program Files\GraalVM\graalvm-ce-java11-20.0.0\bin'
         - export PATH="/c/Program Files/GraalVM/graalvm-ce-java11-20.0.0/bin:$PATH"
         - export PATH="/c/Python38/bin:$PATH"
+        - ls -l /c/Python38/*
         - java -version
         - gu.cmd install native-image
         - ls 'C:\Program Files\GraalVM\graalvm-ce-java11-20.0.0\bin'
@@ -45,6 +46,7 @@ jobs:
         - ls -l
         - java -version
         - native-image --version
+        - native-image.cmd --version
         - cmake --version
         - swig -version
         - python --version

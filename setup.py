@@ -1,6 +1,6 @@
 import sys
-if sys.version_info < (3, 5):
-    raise Exception('Building python-jgrapht requires Python 3.5 or higher.')
+if sys.version_info < (3, 6):
+    raise Exception('Building python-jgrapht requires Python 3.6 or higher.')
 import os
 import codecs
 
@@ -27,9 +27,9 @@ if sys.platform.startswith('linux'):
 elif sys.platform.startswith('darwin'):
     so_ext = '.dylib'
     capi_filename = 'libjgrapht_capi' + so_ext
-    from distutils.sysconfig import get_config_vars
-    conf_vars = get_config_vars()
-    conf_vars['LDSHARED'] = conf_vars['LDSHARED'].replace('-bundle', '-dynamiclib')
+    #from distutils.sysconfig import get_config_vars
+    #conf_vars = get_config_vars()
+    #conf_vars['LDSHARED'] = conf_vars['LDSHARED'].replace('-bundle', '-dynamiclib')
     extra_link_args = ['-Wl,-rpath,@loader_path']
 
 
@@ -165,5 +165,5 @@ setup(
         'Topic :: Software Development :: Libraries'
     ],
     keywords='graphs,networks,data-structures,algorithms',
-    python_requires='>=3.5'
+    python_requires='>=3.6'
 )
